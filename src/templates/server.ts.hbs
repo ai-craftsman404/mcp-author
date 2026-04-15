@@ -1,0 +1,150 @@
+#!/usr/bin/env node
+
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import {
+  CallToolRequestSchema,
+  ErrorCode,
+  ListToolsRequestSchema,
+  McpError,
+} from '@modelcontextprotocol/sdk/types.js';
+
+const server = new Server({
+  name: '{{name}}',
+  version: '{{version}}',
+});
+
+// Configuration
+const BASE_URL = '{{baseUrl}}';
+
+// Authentication helper function
+function buildAuthHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  
+  // Add authentication based on type
+{{#if (eq auth.type "api_key")}}
+{{#if auth.headerName}}
+  headers['{{auth.headerName}}'] = process.env.API_KEY || '';
+{{/if}}
+{{/if}}
+{{#if (eq auth.type "basic")}}
+  const username = process.env.API_USERNAME || '';
+  const password = process.env.API_PASSWORD || '';
+  const credentials = Buffer.from(`${username}:${password}`).toString('base64');
+  headers['Authorization'] = `Basic ${credentials}`;
+{{/if}}
+{{#if (eq auth.type "oauth2")}}
+  const token = process.env.API_TOKEN || '';
+  headers['Authorization'] = `Bearer ${token}`;
+{{/if}}
+  
+  return headers;
+}
+
+// Tool handlers
+{{#each tools}}
+// {{description}}
+async function handle{{capitalize name}}(args: Record<string, unknown>) {
+  try {
+    // Convert args to URL parameters safely
+    const params = new URLSearchParams();
+    Object.entries(args).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        params.append(key, String(value));
+      }
+    });
+
+    const url = `${BASE_URL}{{path}}${params.toString() ? '?' + params.toString() : ''}`;
+    
+    const response = await fetch(url, {
+      method: '{{method}}',
+      headers: buildAuthHeaders(),
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(data, null, 2),
+        },
+      ],
+    };
+  } catch (error) {
+    throw new McpError(
+      ErrorCode.InternalError,
+      `Failed to call {{name}}: ${error}`
+    );
+  }
+}
+
+{{/each}}
+
+// Set up tool request handler
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+  
+  switch (name) {
+{{#each tools}}
+    case '{{name}}':
+      return await handle{{capitalize name}}(args || {});
+{{/each}}
+    default:
+      throw new McpError(
+        ErrorCode.MethodNotFound,
+        `Unknown tool: ${name}`
+      );
+  }
+});
+
+// Set up list tools handler
+server.setRequestHandler(ListToolsRequestSchema, async () => {
+  return {
+    tools: [
+{{#each tools}}
+      {
+        name: '{{name}}',
+        description: '{{description}}',
+        inputSchema: {
+          type: 'object',
+          properties: {
+{{#each parameters}}
+            {{name}}: {
+              type: '{{type}}',
+              description: '{{description}}',
+            },
+{{/each}}
+          },
+{{#if parameters}}
+          required: [
+{{#each parameters}}
+{{#if required}}
+            '{{name}}',
+{{/if}}
+{{/each}}
+          ].filter(Boolean),
+{{/if}}
+        },
+      },
+{{/each}}
+    ],
+  };
+});
+
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error('{{name}} MCP server running on stdio');
+}
+
+main().catch((error) => {
+  console.error('Server failed to start:', error);
+  process.exit(1);
+});

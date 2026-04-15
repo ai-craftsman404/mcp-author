@@ -1,0 +1,194 @@
+#!/usr/bin/env python3
+"""
+{{name}} - MCP Server
+{{description}}
+
+Generated with MCP Author
+"""
+
+import asyncio
+import json
+import os
+from typing import Any, Dict, List, Optional
+import httpx
+from mcp.server.fastmcp import FastMCP
+from mcp.types import Resource, Tool, TextContent
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize FastMCP server
+mcp = FastMCP("{{name}}")
+
+# Configuration
+BASE_URL = "{{baseUrl}}"
+{{#if (eq auth.type "api_key")}}
+API_KEY_HEADER = "{{auth.headerName}}"
+{{/if}}
+{{#if (eq auth.type "basic")}}
+API_USERNAME = os.getenv("API_USERNAME")
+API_PASSWORD = os.getenv("API_PASSWORD")
+{{/if}}
+{{#if (eq auth.type "oauth2")}}
+API_TOKEN = os.getenv("API_TOKEN")
+{{/if}}
+
+class APIClient:
+    """HTTP client for API communication with proper error handling"""
+    
+    def __init__(self):
+        self.base_url = BASE_URL
+        {{#if (eq auth.type "api_key")}}
+        self.api_key = os.getenv("API_KEY")
+        if not self.api_key:
+            raise ValueError("API_KEY environment variable is required")
+        {{/if}}
+        {{#if (eq auth.type "basic")}}
+        if not API_USERNAME or not API_PASSWORD:
+            raise ValueError("API_USERNAME and API_PASSWORD environment variables are required")
+        {{/if}}
+        {{#if (eq auth.type "oauth2")}}
+        if not API_TOKEN:
+            raise ValueError("API_TOKEN environment variable is required")
+        {{/if}}
+        
+    async def make_request(
+        self, 
+        method: str, 
+        path: str, 
+        params: Optional[Dict[str, Any]] = None,
+        data: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Make HTTP request with proper error handling and retries"""
+        
+        url = f"{self.base_url.rstrip('/')}/{path.lstrip('/')}"
+        headers = {
+            "Content-Type": "application/json"
+        }
+        
+        # Add authentication headers based on type
+        {{#if (eq auth.type "api_key")}}
+        {{#if auth.headerName}}
+        headers["{{auth.headerName}}"] = self.api_key
+        {{/if}}
+        {{/if}}
+        {{#if (eq auth.type "basic")}}
+        import base64
+        credentials = base64.b64encode(f"{API_USERNAME}:{API_PASSWORD}".encode()).decode()
+        headers["Authorization"] = f"Basic {credentials}"
+        {{/if}}
+        {{#if (eq auth.type "oauth2")}}
+        headers["Authorization"] = f"Bearer {API_TOKEN}"
+        {{/if}}
+        
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            try:
+                response = await client.request(
+                    method=method,
+                    url=url,
+                    params=params,
+                    json=data,
+                    headers=headers
+                )
+                
+                response.raise_for_status()
+                
+                # Handle empty responses
+                if response.status_code == 204:
+                    return {"status": "success", "message": "Operation completed"}
+                
+                # Parse JSON response
+                try:
+                    return response.json()
+                except json.JSONDecodeError:
+                    return {"status": "success", "data": response.text}
+                    
+            except httpx.HTTPStatusError as e:
+                error_msg = f"HTTP {e.response.status_code}: {e.response.text}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
+            except httpx.TimeoutException:
+                error_msg = "Request timeout - API took too long to respond"
+                logger.error(error_msg)
+                raise Exception(error_msg)
+            except Exception as e:
+                error_msg = f"Request failed: {str(e)}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
+
+# Initialize API client
+api_client = APIClient()
+
+{{#each tools}}
+@mcp.tool()
+async def {{name}}({{#each (sortParametersByRequired parameters)}}{{name}}: {{#if required}}{{pythonType type}}{{else}}Optional[{{pythonType type}}] = None{{/if}}{{#unless @last}}, {{/unless}}{{/each}}) -> str:
+    """
+    {{description}}
+    
+    Args:
+    {{#each parameters}}
+        {{name}} ({{pythonType type}}): {{description}}{{#if required}} (Required){{/if}}
+    {{/each}}
+    
+    Returns:
+        str: JSON response from the API
+    """
+    try:
+        # Build parameters dictionary
+        params = {}
+        {{#each parameters}}
+        if {{name}} is not None:
+            params["{{name}}"] = {{name}}
+        {{/each}}
+        
+        # Make API request
+        {{#if (eq method "GET")}}
+        result = await api_client.make_request("GET", "{{path}}", params=params)
+        {{else if (eq method "POST")}}
+        result = await api_client.make_request("POST", "{{path}}", data=params)
+        {{else if (eq method "PUT")}}
+        result = await api_client.make_request("PUT", "{{path}}", data=params)
+        {{else if (eq method "DELETE")}}
+        result = await api_client.make_request("DELETE", "{{path}}", params=params)
+        {{else}}
+        result = await api_client.make_request("{{method}}", "{{path}}", params=params)
+        {{/if}}
+        
+        return json.dumps(result, indent=2)
+        
+    except Exception as e:
+        error_response = {
+            "error": str(e),
+            "tool": "{{name}}",
+            "timestamp": "{{timestamp}}"
+        }
+        return json.dumps(error_response, indent=2)
+
+{{/each}}
+
+async def main():
+    """Run the MCP server"""
+    try:
+        logger.info("Starting {{name}} MCP Server...")
+        await mcp.run()
+    except KeyboardInterrupt:
+        logger.info("Server shutting down...")
+    except Exception as e:
+        logger.error(f"Server error: {e}")
+        raise
+
+if __name__ == "__main__":
+    # FastMCP's run() method handles the asyncio loop internally
+    # Don't use asyncio.run() as it will conflict with FastMCP's loop
+    try:
+        import asyncio
+        logger.info("Starting mcp-server MCP Server...")
+        # Run directly since FastMCP manages the event loop
+        mcp.run()
+    except KeyboardInterrupt:
+        logger.info("Server shutting down...")
+    except Exception as e:
+        logger.error(f"Server error: {e}")
+        raise
