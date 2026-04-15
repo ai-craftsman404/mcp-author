@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-label="Terminal demo preview">
+  <rect width="1200" height="520" fill="#0b1220"/>
+  <rect x="40" y="40" width="1120" height="440" rx="14" fill="#0f172a" stroke="#334155"/>
+  <circle cx="80" cy="75" r="8" fill="#ef4444"/>
+  <circle cx="105" cy="75" r="8" fill="#f59e0b"/>
+  <circle cx="130" cy="75" r="8" fill="#10b981"/>
+  <g font-family="Consolas, Menlo, monospace" font-size="24" fill="#e2e8f0">
+    <text x="70" y="130">$ mcp-author generate --openapi weather-api.json</text>
+    <text x="70" y="180">✔ Parsed OpenAPI spec</text>
+    <text x="70" y="225">✔ Mapped 12 endpoints to MCP tools</text>
+    <text x="70" y="270">✔ Generated TypeScript server scaffold</text>
+    <text x="70" y="315">✔ Added auth + validation + docs</text>
+    <text x="70" y="360">Production Readiness: Grade A (90%)</text>
+    <text x="70" y="410">Output: ./generated-mcp-server</text>
+  </g>
+  <text x="70" y="470" font-family="Segoe UI, Arial, sans-serif" font-size="18" fill="#94a3b8">Static preview artifact for README rendering.</text>
+</svg>

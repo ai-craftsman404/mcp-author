@@ -213,6 +213,9 @@ examples/
 *.pdf
 *.sketch
 *.fig
+!docs/
+!docs/images/
+!docs/images/*.svg
 
 # Claude Code working files
 .claude/

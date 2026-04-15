@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" role="img" aria-label="Production readiness scoring wheel">
+  <rect width="700" height="700" fill="#ffffff"/>
+  <circle cx="350" cy="350" r="220" fill="none" stroke="#cbd5e1" stroke-width="50" stroke-dasharray="197 30"/>
+  <circle cx="350" cy="350" r="150" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="350" y="340" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="64" font-weight="700" fill="#16a34a">A</text>
+  <text x="350" y="385" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#334155">90%</text>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#0f172a">
+    <text x="350" y="85" text-anchor="middle">Security</text>
+    <text x="530" y="150" text-anchor="middle">Error Handling</text>
+    <text x="620" y="300" text-anchor="middle">Documentation</text>
+    <text x="585" y="470" text-anchor="middle">Testing</text>
+    <text x="430" y="610" text-anchor="middle">Performance</text>
+    <text x="270" y="610" text-anchor="middle">Configuration</text>
+    <text x="115" y="470" text-anchor="middle">Code Quality</text>
+  </g>
+</svg>

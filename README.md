@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/images/hero-banner.png" alt="MCP Author — From API to MCP Server in 60 Seconds" width="100%"/>
+<img src="docs/images/hero-banner.svg" alt="MCP Author — From API to MCP Server in 60 Seconds" width="100%"/>
 
 # MCP Author
 
@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Quality Grade A](https://img.shields.io/badge/Quality-Grade%20A%20%2890%25%2B%29-brightgreen?style=flat-square)](#production-readiness)
+[![Quality Grade A](https://img.shields.io/badge/Quality-Grade%20A%20%2890%25%2B%29-brightgreen?style=flat-square)](#production-readiness-scoring)
 
 [**Quick Start**](#quick-start) · [**How It Works**](#how-it-works) · [**Examples**](#examples) · [**CLI Reference**](#cli-reference)
 
@@ -49,7 +49,7 @@ mcp-author generate
 ## How It Works
 
 <div align="center">
-<img src="docs/images/pipeline-diagram.png" alt="MCP Author Pipeline: OpenAPI → Parse → Configure → Generate → Validate" width="90%"/>
+<img src="docs/images/pipeline-diagram.svg" alt="MCP Author Pipeline: OpenAPI → Parse → Configure → Generate → Validate" width="90%"/>
 </div>
 
 <br>
@@ -66,7 +66,7 @@ mcp-author generate
 ## Terminal Demo
 
 <div align="center">
-<img src="docs/images/demo.gif" alt="MCP Author terminal demo" width="85%"/>
+<img src="docs/images/demo.svg" alt="MCP Author terminal demo" width="85%"/>
 </div>
 
 ---
@@ -110,7 +110,7 @@ generated-mcp-server/
 ## Before & After
 
 <div align="center">
-<img src="docs/images/before-after.png" alt="Legacy Integration vs AI-Orchestrated MCP" width="90%"/>
+<img src="docs/images/before-after.svg" alt="Legacy Integration vs AI-Orchestrated MCP" width="90%"/>
 </div>
 
 <br>
@@ -130,7 +130,7 @@ generated-mcp-server/
 Every generated server is scored across **7 categories** before you write a line of custom logic:
 
 <div align="center">
-<img src="docs/images/scoring-wheel.png" alt="7-category production readiness scoring" width="50%"/>
+<img src="docs/images/scoring-wheel.svg" alt="7-category production readiness scoring" width="50%"/>
 </div>
 
 <br>
@@ -214,7 +214,7 @@ npm run dev
 
 <div align="center">
 
-<img src="docs/images/footer-banner.png" alt="" width="100%"/>
+<img src="docs/images/footer-banner.svg" alt="" width="100%"/>
 
 **Built for developers who ship.**
 

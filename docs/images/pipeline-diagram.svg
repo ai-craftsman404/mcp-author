@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="Pipeline diagram">
+  <rect width="1200" height="300" fill="#f8fafc"/>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#0f172a" text-anchor="middle">
+    <rect x="30" y="90" width="230" height="110" rx="14" fill="#dbeafe" stroke="#93c5fd"/>
+    <text x="145" y="155">OpenAPI Spec</text>
+    <rect x="325" y="90" width="230" height="110" rx="14" fill="#e2e8f0" stroke="#cbd5e1"/>
+    <text x="440" y="155">Parse + Analyze</text>
+    <rect x="620" y="90" width="230" height="110" rx="14" fill="#d1fae5" stroke="#6ee7b7"/>
+    <text x="735" y="155">Generate Server</text>
+    <rect x="915" y="90" width="250" height="110" rx="14" fill="#ede9fe" stroke="#c4b5fd"/>
+    <text x="1040" y="155">Validate + Score</text>
+  </g>
+  <g stroke="#475569" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M260 145 H315"/>
+    <path d="M555 145 H610"/>
+    <path d="M850 145 H905"/>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+  </defs>
+</svg>
