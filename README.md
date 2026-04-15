@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/images/hero-banner.svg" alt="MCP Author — From API to MCP Server in 60 Seconds" width="100%"/>
+<img src="docs/images/hero-banner.png" alt="MCP Author — From API to MCP Server in 60 Seconds" width="100%"/>
 
 # MCP Author
 
@@ -49,7 +49,7 @@ mcp-author generate
 ## How It Works
 
 <div align="center">
-<img src="docs/images/pipeline-diagram.svg" alt="MCP Author Pipeline: OpenAPI → Parse → Configure → Generate → Validate" width="90%"/>
+<img src="docs/images/pipeline-diagram.png" alt="MCP Author Pipeline: OpenAPI → Parse → Configure → Generate → Validate" width="90%"/>
 </div>
 
 <br>
@@ -110,7 +110,7 @@ generated-mcp-server/
 ## Before & After
 
 <div align="center">
-<img src="docs/images/before-after.svg" alt="Legacy Integration vs AI-Orchestrated MCP" width="90%"/>
+<img src="docs/images/before-after.png" alt="Legacy Integration vs AI-Orchestrated MCP" width="90%"/>
 </div>
 
 <br>
@@ -130,7 +130,7 @@ generated-mcp-server/
 Every generated server is scored across **7 categories** before you write a line of custom logic:
 
 <div align="center">
-<img src="docs/images/scoring-wheel.svg" alt="7-category production readiness scoring" width="50%"/>
+<img src="docs/images/scoring-wheel.png" alt="7-category production readiness scoring" width="60%"/>
 </div>
 
 <br>
@@ -209,6 +209,20 @@ npm run dev
 
 1. Fork → feature branch → changes → `npm test` → pull request
 2. All PRs require passing CI and 80%+ test coverage
+
+---
+
+## Architecture Motifs
+
+<div align="center">
+<img src="docs/images/network-banner-wide.png" alt="Neural-style network motif" width="90%"/>
+</div>
+
+<br>
+
+<div align="center">
+<img src="docs/images/network-dual.png" alt="Dual network motif" width="85%"/>
+</div>
 
 ---
 

@@ -216,6 +216,7 @@ examples/
 !docs/
 !docs/images/
 !docs/images/*.svg
+!docs/images/*.png
 
 # Claude Code working files
 .claude/
