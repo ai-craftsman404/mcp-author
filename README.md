@@ -7,7 +7,7 @@
 ### From any API to a production-ready MCP server — in 60 seconds.
 
 [![npm version](https://img.shields.io/npm/v/mcp-author.svg?style=flat-square&color=0066cc)](https://www.npmjs.com/package/mcp-author)
-[![Build](https://img.shields.io/github/actions/workflow/status/gesada66/mcp-author/ci.yml?style=flat-square)](https://github.com/gesada66/mcp-author/actions)
+[![Build](https://img.shields.io/github/actions/workflow/status/ai-craftsman404/mcp-author/ci.yml?style=flat-square)](https://github.com/ai-craftsman404/mcp-author/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -201,7 +201,7 @@ mcp-author generate
 ## Contributing
 
 ```bash
-git clone https://github.com/gesada66/mcp-author.git
+git clone https://github.com/ai-craftsman404/mcp-author.git
 cd mcp-author
 npm install
 npm run dev
@@ -218,7 +218,7 @@ npm run dev
 
 **Built for developers who ship.**
 
-[MCP Documentation](https://modelcontextprotocol.io/) · [MCP Inspector](https://github.com/modelcontextprotocol/inspector) · [Issues](https://github.com/gesada66/mcp-author/issues) · [Discussions](https://github.com/gesada66/mcp-author/discussions)
+[MCP Documentation](https://modelcontextprotocol.io/) · [MCP Inspector](https://github.com/modelcontextprotocol/inspector) · [Issues](https://github.com/ai-craftsman404/mcp-author/issues) · [Discussions](https://github.com/ai-craftsman404/mcp-author/discussions)
 
 *MIT License · Made with precision*
 
