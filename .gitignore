@@ -249,3 +249,5 @@ yarn-error.log*
 template-output/
 generated-output/examples/weather-mcp-server/node_modules/
 .claude-code/
+docs/PHASE-2-ENHANCED.md
+docs/PHASE-3-ENTERPRISE.md
